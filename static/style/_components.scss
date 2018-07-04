@@ -1,3 +1,60 @@
-button {
+.btn, .card-action.view-recipe-link {
   background-color: $button_colour;
+  color: black;
+  transition: all .5s ease-in-out;
+  &:hover {
+    background-color: $accent_2_colour;
+  }
+}
+
+.sidebar-icon {
+  background-color: $accent_1_colour;
+  color: white;
+  font-size: 30px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  padding:.5rem;
+  margin-bottom: 1rem;
+  width: 50px;
+  transition: all .5s ease-in-out;
+  &:hover {
+    background-color: transparent;
+    color: $accent_1_colour;
+    border: 2px solid $accent_1_colour;
+  }
+}
+
+.navbar {
+  background-color: $nav_colour;
+}
+
+.navbar-top {
+  background-color: $accent_2_colour;
+}
+
+.recipe-list-item {
+  .recipe-section {
+    background: center top / contain no-repeat url('/static/images/buffet.png');
+  }
+
+  .recipe-list-item {
+    background-color: rgba(255,255,255,0.95);
+  }
+
+  .recipe-list-item-title {
+    background-color: rgba($nav_colour, .8);
+    border-top-right-radius: 20px;
+  }
+
+  .recipe-list-item-image {
+    @media #{$tablet} {
+      max-height: 180px;
+      overflow: hidden;
+    }
+  }
+
+  .card-content.recipe-list-item-desc {
+    background-color: rgba($neutral_colour, .2);
+    border-top-right-radius: 20px;
+  }
 }

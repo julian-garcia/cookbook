@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row recipe-section">
+{% for recipe in recipes %}
+  <div class="col s12 m4">
+    <div class="card recipe-list-item">
+      <div class="card-image recipe-list-item-image">
+        <img src="{{url_for('static',filename='images/'+recipe.image_url)}}">
+        <span class="card-title recipe-list-item-title">{{recipe.recipe_title}}</span>
+      </div>
+      <div class="card-content recipe-list-item-desc">
+        <p>{{recipe.recipe_description}}</p>
+      </div>
+      <a class="center-align" href="{{url_for('view_recipe', recipe_id=recipe._id)}}"><div class="card-action view-recipe-link">
+        View Recipe
+      </div></a>
+    </div>
+  </div>
+{% endfor %}
+</div>
+{% endblock %}

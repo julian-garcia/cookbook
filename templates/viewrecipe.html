@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row recipe-section">
+  <div class="col s12 m4">
+    <div class="card recipe-list-item">
+      <div class="card-image recipe-list-item-image">
+        <img src="{{url_for('static',filename='images/'+recipe.image_url)}}">
+        <span class="card-title recipe-list-item-title">{{recipe.recipe_title}}</span>
+      </div>
+      <div class="card-content recipe-list-item-desc">
+        <p>{{recipe.recipe_description}}</p>
+      </div>
+      <a class="center-align" href="#"><div class="card-action view-recipe-link">
+        View Recipe
+      </div></a>
+    </div>
+  </div>
+</div>
+{% endblock %}

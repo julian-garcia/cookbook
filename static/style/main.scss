@@ -1,3 +1,5 @@
 /* Import style definitions */
-@import 'palette';
-@import 'components';
+@import 'variables',
+        'typography',
+        'components',
+        'layout';

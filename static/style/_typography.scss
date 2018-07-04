@@ -1,0 +1,22 @@
+.brand-logo {
+  font-family: $logo-font-family;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label,
+.recipe-list-item-title {
+  font-family: $title-font-family;
+  margin: 0;
+}
+
+a,
+li,
+p,
+input, textarea {
+  font-family: $body-font-family;
+}

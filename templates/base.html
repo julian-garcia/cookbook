@@ -1,15 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Cookle-Bookle</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Courgette|Overpass:400,400i|Pacifico" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
   <link rel="stylesheet" href="{{url_for('static', filename='style/main.min.css')}}">
 </head>
+
 <body>
-  <header></header>
-  {% block content %}
-  {% endblock %}
+  <header>
+    <ul id="meat-dropdown" class="dropdown-content">
+      <li><a href="{{url_for('list_category', category_name='meat')}}">Meat</a></li>
+      <li class="divider"></li>
+      <li><a href="{{url_for('list_subcategory', category_name='meat', subcategory_name='beef')}}">Beef</a></li>
+      <li><a href="{{url_for('list_subcategory', category_name='meat', subcategory_name='chicken')}}">Chicken</a></li>
+    </ul>
+    <div class="navbar-top"></div>
+    <nav class="navbar">
+      <div class="nav-wrapper">
+        <a href="{{url_for('index')}}" class="brand-logo">Cookle <i class="fas fa-utensils"> </i> Bookle</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+          <li>
+            <form>
+              <div class="input-field">
+                <input id="search" type="search" required>
+                <label class="label-icon search-icon-label" for="search"><i class="material-icons">search</i></label>
+                <i class="material-icons">close</i>
+              </div>
+            </form>
+          </li>
+          <li><a href="sass.html">Sass</a></li>
+          <li><a href="badges.html">Components</a></li>
+          <!-- Dropdown Trigger -->
+          <li>
+            <a class="dropdown-trigger" href="#!" data-target="meat-dropdown">
+              Meat<i class="material-icons right">arrow_drop_down</i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <ul class="sidenav" id="mobile-demo">
+      <li><a href="sass.html">Sass</a></li>
+      <li><a href="badges.html">Components</a></li>
+      <li><a href="collapsible.html">Javascript</a></li>
+      <li><a href="mobile.html">Mobile</a></li>
+    </ul>
+  </header>
+  <div class="container-fluid">
+    <div class="row content-row">
+      <div class="col s12 m2 center-align">
+        <a href="{{url_for('login')}}"><i class="fas fa-sign-in-alt sidebar-icon"></i></a>
+        <br>
+        <a href="{{url_for('register')}}"><i class="fas fa-user-plus sidebar-icon"></i></a>
+      </div>
+      <div class="col s12 m8">
+        {% block content %} {% endblock %}
+      </div>
+      <div class="col s12 m2 center-align">
+        <a href="{{url_for('add_recipe')}}"><i class="fas fa-plus sidebar-icon"></i></a>
+        <br>
+        <a href="#"><i class="fas fa-list sidebar-icon"></i></a>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+  <script src="{{url_for('static', filename='scripts/main.js')}}" charset="utf-8"></script>
 </body>
+
 </html>
