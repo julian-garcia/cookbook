@@ -15,12 +15,18 @@
 
 <body>
   <header>
-    <ul id="meat-dropdown" class="dropdown-content">
-      <li><a href="{{url_for('list_category', category_name='meat')}}">Meat</a></li>
+    {% for category in categories %}
+    <ul id="{{category.category_name}}-dropdown" class="dropdown-content">
+      <li><a href="{{url_for('list_category', category_name=category.category_name)}}">{{category.category_name|title}}</a></li>
       <li class="divider"></li>
-      <li><a href="{{url_for('list_subcategory', category_name='meat', subcategory_name='beef')}}">Beef</a></li>
-      <li><a href="{{url_for('list_subcategory', category_name='meat', subcategory_name='chicken')}}">Chicken</a></li>
+      {% set _stub = subcategories.rewind() %}
+      {% for subcategory in subcategories %}
+      {% if subcategory.category_name == category.category_name %}
+      <li><a href="{{url_for('list_subcategory', category_name=category.category_name, subcategory_name=subcategory.subcategory_name)}}">{{subcategory.subcategory_name|title}}</a></li>
+      {% endif %}
+      {% endfor %}
     </ul>
+    {% endfor %}
     <div class="navbar-top"></div>
     <nav class="navbar">
       <div class="nav-wrapper">
@@ -36,22 +42,25 @@
               </div>
             </form>
           </li>
-          <li><a href="sass.html">Sass</a></li>
-          <li><a href="badges.html">Components</a></li>
-          <!-- Dropdown Trigger -->
+          <!-- Dropdown Triggers -->
+          {% set _stub = categories.rewind() %}
+          {% for category in categories %}
           <li>
-            <a class="dropdown-trigger" href="#!" data-target="meat-dropdown">
-              Meat<i class="material-icons right">arrow_drop_down</i>
+            <a class="dropdown-trigger" href="#!" data-target="{{category.category_name}}-dropdown">
+              {{category.category_name|title}}<i class="material-icons right">arrow_drop_down</i>
             </a>
           </li>
+          {% endfor %}
+          {% set _stub = categories.rewind() %}
+          {% set _stub = subcategories.rewind() %}
         </ul>
       </div>
     </nav>
     <ul class="sidenav" id="mobile-demo">
-      <li><a href="sass.html">Sass</a></li>
-      <li><a href="badges.html">Components</a></li>
-      <li><a href="collapsible.html">Javascript</a></li>
-      <li><a href="mobile.html">Mobile</a></li>
+      <li><a href="">Bread</a></li>
+      <li><a href="">Desserts</a></li>
+      <li><a href="">Meat</a></li>
+      <li><a href="">Vegetables</a></li>
     </ul>
   </header>
   <div class="container-fluid">

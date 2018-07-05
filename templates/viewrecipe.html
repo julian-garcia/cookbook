@@ -1,19 +1,52 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="row recipe-section">
-  <div class="col s12 m4">
-    <div class="card recipe-list-item">
-      <div class="card-image recipe-list-item-image">
-        <img src="{{url_for('static',filename='images/'+recipe.image_url)}}">
-        <span class="card-title recipe-list-item-title">{{recipe.recipe_title}}</span>
+<div class="recipe-section">
+    <div class="card">
+      <div class="card-content">
+        <h3>{{recipe.recipe_title}}</h3>
+        <h5>{{recipe.category_name|title}} / {{recipe.subcategory_name|title}}</h5>
+        <div class="row">
+          <div class="col s12 m8">
+            <p>{{recipe.recipe_description}}</p>
+            <ul>
+            <h6>Preparation:</h6>
+            {% for item in recipe.recipe_steps %}
+            <li>{{item}}</li>
+            {% endfor %}
+            </ul>
+          </div>
+          <div class="col s12 m4">
+            <img class="responsive-img" src="{{url_for('static',filename='images/'+recipe.image_url)}}">
+          </div>
+        </div>
+        <a class="btn-floating halfway-fab waves-effect waves-light recipe-add">
+          <i class="material-icons">add</i>
+        </a>
+        <a class="btn-floating halfway-fab waves-effect waves-light recipe-edit">
+          <i class="material-icons">edit</i>
+        </a>
       </div>
-      <div class="card-content recipe-list-item-desc">
-        <p>{{recipe.recipe_description}}</p>
+      <div class="card-tabs">
+        <ul class="tabs tabs-fixed-width">
+          <li class="tab"><a class="active recipe-tab" href="#ingredients">Ingredients</a></li>
+          <li class="tab"><a class="recipe-tab" href="#times">Duration</a></li>
+          <li class="tab"><a class="recipe-tab" href="#author">Author</a></li>
+        </ul>
       </div>
-      <a class="center-align" href="#"><div class="card-action view-recipe-link">
-        View Recipe
-      </div></a>
+      <div class="card-content grey lighten-4">
+        <div id="ingredients">
+          <ul>
+          {% for item in recipe.ingredients %}
+          <li>{{item}}</li>
+          {% endfor %}
+          </ul>
+        </div>
+        <div id="times">
+          <h5>Cooking time: {{recipe.cooking_time}}</h5>
+          <h5>Preparation time: {{recipe.preparation_time}}</h5>
+        </div>
+        <div id="author"><h5>{{recipe.recipe_author}}</h5></div>
+      </div>
     </div>
-  </div>
 </div>
 {% endblock %}

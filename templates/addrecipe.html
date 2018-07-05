@@ -8,22 +8,20 @@
         <input type="text" id="recipe_title" name="recipe_title" class="validate" required>
         <label for="recipe_title">Recipe Title</label>
       </div>
-      <div class="input-field col s12 m6">
-        <div class="file-field input-field">
-          <div class="btn">
-            <span>Photo</span>
-            <input type="file" name=file accept="image/*">
-          </div>
-          <div class="file-path-wrapper">
-            <input class="file-path validate" id="image_url" name="image_url" type="text" required>
-          </div>
+      <div class="file-field input-field col s12 m6">
+        <div class="btn">
+          <span>Photo</span>
+          <input type="file" name=file accept="image/*">
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" id="image_url" name="image_url" type="text" required>
         </div>
       </div>
       <div class="input-field col s12 m6">
         <select name="category_name" id="category_name" required>
           <option value="" disabled selected>Choose category</option>
           {% for category in categories %}
-          <option value="{{category.category_name}}">{{category.category_name}}</option>
+          <option value="{{category.category_name}}">{{category.category_name|title}}</option>
           {% endfor %}
         </select>
         <label for="category_name">Category</label>
@@ -32,7 +30,7 @@
         <select name="subcategory_name" id="subcategory_name" required>
           <option cat="" value="" disabled selected>Choose subcategory</option>
           {% for subcategory in subcategories %}
-          <option cat="{{subcategory.category_name}}" value="{{subcategory.subcategory_name}}">{{subcategory.subcategory_name}}</option>
+          <option cat="{{subcategory.category_name}}" value="{{subcategory.subcategory_name}}">{{subcategory.subcategory_name|title}}</option>
           {% endfor %}
         </select>
         <label for="subcategory_name">Sub Category</label>
@@ -45,13 +43,17 @@
         <textarea id="recipe_steps" name="recipe_steps" class="materialize-textarea" required></textarea>
         <label for="recipe_steps">Recipe Steps (press enter to separate steps)</label>
       </div>
+      <div class="input-field col s12">
+        <textarea id="ingredients" name="ingredients" class="materialize-textarea" required></textarea>
+        <label for="ingredients">Ingredients (press enter to separate each ingredient)</label>
+      </div>
       <div class="input-field col s12 m6">
         <input type="number" id="cooking_time" name="cooking_time" min="0" class="validate" required>
-        <label for="cooking_time">Cooking Time</label>
+        <label for="cooking_time">Cooking Time (minutes)</label>
       </div>
       <div class="input-field col s12 m6">
         <input type="number" id="preparation_time" name="preparation_time" min="0" class="validate" required>
-        <label for="preparation_time">Preparation Time</label>
+        <label for="preparation_time">Preparation Time (minutes)</label>
       </div>
     </div>
     <div class="row">

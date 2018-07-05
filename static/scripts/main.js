@@ -4,6 +4,8 @@ $( document ).ready(function() {
     var instances = M.Sidenav.init(elems);
     var elems = document.querySelectorAll('select');
     var instances = M.FormSelect.init(elems);
+    var elems = document.querySelectorAll('.tabs');
+    var instance = M.Tabs.init(elems);
 
     // Category -> Subcategory: Dependent drop down list
     var options = $('#subcategory_name').find('option');

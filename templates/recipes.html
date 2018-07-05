@@ -2,8 +2,8 @@
 {% block content %}
 <div class="row recipe-section">
 {% for recipe in recipes %}
-  <div class="col s12 m4">
-    <div class="card recipe-list-item">
+  <div class="col s12 m6 l4">
+    <div class="card small recipe-list-item">
       <div class="card-image recipe-list-item-image">
         <img src="{{url_for('static',filename='images/'+recipe.image_url)}}">
         <span class="card-title recipe-list-item-title">{{recipe.recipe_title}}</span>

@@ -7,6 +7,10 @@
   }
 }
 
+label.active {
+  color: $accent_2_colour;
+}
+
 .sidebar-icon {
   background-color: $accent_1_colour;
   color: white;
@@ -46,15 +50,30 @@
     border-top-right-radius: 20px;
   }
 
-  .recipe-list-item-image {
-    @media #{$tablet} {
-      max-height: 180px;
-      overflow: hidden;
-    }
-  }
-
   .card-content.recipe-list-item-desc {
     background-color: rgba($neutral_colour, .2);
     border-top-right-radius: 20px;
+  }
+}
+
+.btn-floating.halfway-fab {
+  &.recipe-edit{
+    right:70px;
+    background-color: $accent_1_colour;
+  }
+  &.recipe-add{
+    background-color: $accent_1_colour;
+  }
+}
+
+.dropdown-content li>a,
+.dropdown-content li>span {
+  color: $nav_colour;
+}
+
+.tabs .tab a.recipe-tab {
+  color: rgba($accent_1_colour,.6);
+  &.active {
+    color: $accent_1_colour;
   }
 }
