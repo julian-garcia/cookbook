@@ -57,10 +57,10 @@
       </div>
     </nav>
     <ul class="sidenav" id="mobile-demo">
-      <li><a href="">Bread</a></li>
-      <li><a href="">Desserts</a></li>
-      <li><a href="">Meat</a></li>
-      <li><a href="">Vegetables</a></li>
+      {% for category in categories %}
+      <li><a href="{{url_for('list_category', category_name=category.category_name)}}">{{category.category_name|title}}</a></li>
+      {% endfor %}
+      {% set _stub = categories.rewind() %}
     </ul>
   </header>
   <div class="container-fluid">

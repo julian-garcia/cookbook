@@ -2,6 +2,7 @@
 {% block content %}
 <div class="row">
   <h3 class="center-align">Register</h3>
+  <h5 class="center-align">{{message|safe}}</h5>
   <form class="col s12" action="{{url_for('register')}}" method="POST">
     <div class="row">
       <div class="input-field col s12">
@@ -22,6 +23,4 @@
     </div>
   </form>
 </div>
-{{message}}
-
 {% endblock %}

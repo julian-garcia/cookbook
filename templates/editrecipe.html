@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+  <h3 class="center-align">Change Recipe</h3>
+  <form class="col s12" action="{{url_for('edit_recipe', recipe_id = recipe._id)}}" method="POST" enctype="multipart/form-data">
+    <div class="row">
+      <div class="input-field col s12 m6">
+        <input type="text" id="recipe_title" name="recipe_title" class="validate" value="{{recipe.recipe_title}}">
+        <label for="recipe_title">Recipe Title</label>
+      </div>
+      <div class="file-field input-field col s12 m6">
+        <div class="btn">
+          <span>Photo</span>
+          <input type="file" name=file accept="image/*">
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" id="image_url" name="image_url" type="text">
+        </div>
+      </div>
+      <div class="input-field col s12 m6">
+        <select name="category_name" id="category_name">
+          {% for category in categories %}
+          {% if category.category_name == recipe.category_name %}
+          <option value="{{category.category_name}}" selected>{{category.category_name|title}}</option>
+          {% else %}
+          <option value="{{category.category_name}}">{{category.category_name|title}}</option>
+          {% endif %}
+          {% endfor %}
+        </select>
+        <label for="category_name">Category</label>
+      </div>
+      <div class="input-field col s12 m6">
+        <select name="subcategory_name" id="subcategory_name">
+          {% for subcategory in subcategories %}
+          {% if subcategory.subcategory_name == recipe.subcategory_name %}
+          <option cat="{{subcategory.category_name}}" value="{{subcategory.subcategory_name}}" selected>{{subcategory.subcategory_name|title}}</option>
+          {% else %}
+          <option cat="{{subcategory.category_name}}" value="{{subcategory.subcategory_name}}">{{subcategory.subcategory_name|title}}</option>
+          {% endif %}
+          {% endfor %}
+        </select>
+        <label for="subcategory_name">Sub Category</label>
+      </div>
+      <div class="input-field col s12">
+        <textarea id="recipe_description" name="recipe_description" class="materialize-textarea">{{recipe.recipe_description}}</textarea>
+        <label for="recipe_description">Recipe Description</label>
+      </div>
+      <div class="input-field col s12">
+        <textarea id="recipe_steps" name="recipe_steps" class="materialize-textarea">{{steps}}</textarea>
+        <label for="recipe_steps">Recipe Steps (press enter to separate steps)</label>
+      </div>
+      <div class="input-field col s12">
+        <textarea id="ingredients" name="ingredients" class="materialize-textarea">{{ingredients}}</textarea>
+        <label for="ingredients">Ingredients (press enter to separate each ingredient)</label>
+      </div>
+      <div class="input-field col s12 m6">
+        <input type="number" id="cooking_time" name="cooking_time" min="0" class="validate" value="{{recipe.cooking_time}}">
+        <label for="cooking_time">Cooking Time (minutes)</label>
+      </div>
+      <div class="input-field col s12 m6">
+        <input type="number" id="preparation_time" name="preparation_time" min="0" class="validate" value="{{recipe.preparation_time}}">
+        <label for="preparation_time">Preparation Time (minutes)</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12 center-align">
+        <button class="btn waves-effect waves-light" type="submit" name="action">Save Changes
+          <i class="fas fa-pen right"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+{{message}}
+
+{% endblock %}
