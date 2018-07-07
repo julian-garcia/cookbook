@@ -30,13 +30,13 @@
     <div class="navbar-top"></div>
     <nav class="navbar">
       <div class="nav-wrapper">
-        <a href="{{url_for('index')}}" class="brand-logo">Cookle <i class="fas fa-utensils"> </i> Bookle</a>
+        <a href="{{url_for('index')}}" class="brand-logo"><i class="fas fa-utensils"></i> Cookle Bookle</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
           <li>
-            <form>
+            <form action="{{url_for('search')}}" method='POST'>
               <div class="input-field">
-                <input id="search" type="search" required>
+                <input id="search" type="search" name="search" required>
                 <label class="label-icon search-icon-label" for="search"><i class="material-icons">search</i></label>
                 <i class="material-icons">close</i>
               </div>
@@ -63,23 +63,47 @@
       {% set _stub = categories.rewind() %}
     </ul>
   </header>
-  <div class="container-fluid">
+  <main class="container-fluid">
     <div class="row content-row">
       <div class="col s12 m2 center-align">
-        <a href="{{url_for('login')}}"><i class="fas fa-sign-in-alt sidebar-icon"></i></a>
-        <br>
-        <a href="{{url_for('register')}}"><i class="fas fa-user-plus sidebar-icon"></i></a>
+        <div class="row">
+          <div class="col s4 m12 center-align">
+            <a href="{{url_for('login')}}"><i class="fas fa-sign-in-alt sidebar-icon"></i></a>
+          </div>
+          <div class="col s4 m12 center-align">
+            <a href="{{url_for('register')}}"><i class="fas fa-user-plus sidebar-icon"></i></a>
+          </div>
+          <div class="col s4 m12 center-align">
+            <a href="{{url_for('logout')}}"><i class="fas fa-sign-out-alt sidebar-icon"></i></a>
+          </div>
+        </div>
       </div>
       <div class="col s12 m8">
         {% block content %} {% endblock %}
       </div>
       <div class="col s12 m2 center-align">
-        <a href="{{url_for('add_recipe')}}"><i class="fas fa-plus sidebar-icon"></i></a>
-        <br>
-        <a href="#"><i class="fas fa-list sidebar-icon"></i></a>
+        <div class="row">
+          <div class="col s4 m12 center-align">
+            <a href="{{url_for('add_recipe')}}"><i class="fas fa-plus sidebar-icon"></i></a>
+          </div>
+          <div class="col s4 m12 center-align">
+            <a href="{{url_for('favourites')}}"><i class="fas fa-list sidebar-icon"></i></a>
+          </div>
+          <div class="col s4 m12 center-align">
+            <a href="{{url_for('request_category')}}"><i class="far fa-folder-open sidebar-icon"></i></a>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  </main>
+  <footer class="page-footer">
+    <div class="footer-copyright">
+      <div class="container">
+      &copy; 2018
+      <a class="grey-text text-lighten-4 right" href="{{url_for('list_requests')}}">Approve Requests</a>
+      </div>
+    </div>
+  </footer>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
   <script src="{{url_for('static', filename='scripts/main.js')}}" charset="utf-8"></script>

@@ -28,22 +28,24 @@ label.active {
   }
 }
 
-.navbar {
+.navbar, .page-footer .footer-copyright {
   background-color: $nav_colour;
 }
 
-.navbar-top {
+.navbar-top, .page-footer {
   background-color: $accent_2_colour;
 }
 
-.recipe-list-item {
-  .recipe-section {
-    background: center top / contain no-repeat url('/static/images/buffet.png');
-  }
+.recipe-section {
+  background: center top / contain no-repeat url('/static/images/buffet.png');
+}
 
-  .recipe-list-item {
-    background-color: rgba(255,255,255,0.95);
-  }
+.pagination li.active {
+  background-color: $accent_1_colour;
+}
+
+.recipe-list-item {
+  background-color: rgba(255,255,255,0.95);
 
   .recipe-list-item-title {
     background-color: rgba($nav_colour, .8);
@@ -54,6 +56,15 @@ label.active {
     background-color: rgba($neutral_colour, .2);
     border-top-right-radius: 20px;
   }
+}
+
+.card.view-recipe {
+  background-color: rgba(white, .95);
+}
+
+.view-recipe-message {
+  color: $nav_colour;
+  padding: 10px 0;
 }
 
 .btn-floating.halfway-fab {

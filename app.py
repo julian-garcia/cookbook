@@ -1,4 +1,4 @@
-import os, bcrypt, math
+import os, bcrypt, math, pymongo
 from flask import Flask, render_template, url_for, request, session, redirect
 from flask_pymongo import PyMongo
 from flask_paginate import Pagination, get_page_parameter, get_page_args
@@ -14,8 +14,30 @@ def index():
     recipes = mongo.db.recipes.find()
     categories = mongo.db.categories.find().sort("category_name")
     subcategories = mongo.db.subcategories.find().sort("subcategory_name")
+    count_recipes = mongo.db.recipes.find().count()
+    count_favourites = mongo.db.favourites.find().count()
+    count_users = mongo.db.users.find().count()
+
     return render_template('index.html',
-                           recipes=recipes, categories=categories, subcategories=subcategories);
+                           recipes=recipes, categories=categories, subcategories=subcategories,
+                           count_favourites=count_favourites, count_recipes=count_recipes, count_users=count_users);
+
+@app.route('/search', methods=['POST'])
+def search():
+    categories = mongo.db.categories.find().sort("category_name")
+    subcategories = mongo.db.subcategories.find().sort("subcategory_name")
+    if request.method == 'POST':
+        mongo.db.recipes.create_index([('recipe_title', 'text')])
+        recipes = mongo.db.recipes.find({"$text": {"$search": request.form['search']}})
+        if recipes.count() == 0:
+            return render_template('404.html',
+                                   categories=categories, subcategories=subcategories,
+                                   message='No recipes found')
+
+        paginate_setup(recipes)
+        return render_template('recipes.html',
+                               recipes=recipes, categories=categories, subcategories=subcategories,
+                               pagination=pagination, page=page, per_page=per_page)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -34,6 +56,19 @@ def login():
                                categories=categories, subcategories=subcategories)
     return render_template('login.html', message='',
                            categories=categories, subcategories=subcategories)
+
+@app.route('/logout')
+def logout():
+    categories = mongo.db.categories.find().sort("category_name")
+    subcategories = mongo.db.subcategories.find().sort("subcategory_name")
+    if 'username' in session:
+        session.pop('username')
+        return render_template('404.html',
+                               categories=categories, subcategories=subcategories,
+                               message='You have been signed out <i class="fas fa-sign-out-alt"></i>')
+    return render_template('404.html',
+                           categories=categories, subcategories=subcategories,
+                           message='You have already signed out <i class="fas fa-sign-out-alt"></i>')
 
 @app.route('/register', methods=['GET','POST'])
 def register():
@@ -91,8 +126,8 @@ def list_subcategory(category_name, subcategory_name):
 def add_recipe():
     categories = mongo.db.categories.find().sort("category_name")
     subcategories = mongo.db.subcategories.find().sort("subcategory_name")
-    if request.method == 'POST':
-        if 'username' in session:
+    if 'username' in session:
+        if request.method == 'POST':
             recipe_steps = request.form['recipe_steps'].split('\n')
             ingredients = request.form['ingredients'].split('\n')
             image_url = request.form['image_url'].replace(' ','_')
@@ -119,10 +154,11 @@ def add_recipe():
                                    recipes=recipes, categories=categories, subcategories=subcategories,
                                    pagination=pagination, page=page, per_page=per_page)
 
-        return render_template('login.html',
-                               message='Please log in or register to add a recipe',
-                               categories=categories, subcategories=subcategories)
-    return render_template('addrecipe.html', categories=categories, subcategories=subcategories)
+        return render_template('addrecipe.html', categories=categories, subcategories=subcategories)
+
+    return render_template('login.html',
+                           message='Please log in or register to add a recipe',
+                           categories=categories, subcategories=subcategories)
 
 @app.route('/view/<recipe_id>', methods=['POST','GET'])
 def view_recipe(recipe_id):
@@ -230,6 +266,131 @@ def remove_favourite(recipe_id):
     return render_template('login.html',
                            message='Please log in or register to remove a favourite',
                            categories=categories, subcategories=subcategories)
+
+@app.route('/favourites')
+def favourites():
+    categories = mongo.db.categories.find().sort("category_name")
+    subcategories = mongo.db.subcategories.find().sort("subcategory_name")
+    favourites = mongo.db.favourites
+    if 'username' in session:
+        fav = list(favourites.find({'user': session['username']}))
+        if fav == []:
+            return render_template('404.html',
+                                   categories=categories, subcategories=subcategories,
+                                   message='You have no favourites <i class="far fa-frown"></i>')
+
+        ids = [item['recipe_id'] for item in fav]
+        recipes = mongo.db.recipes.find({'_id': {'$in': ids}}).sort("recipe_title")
+        paginate_setup(recipes)
+        return render_template('recipes.html',
+                               recipes=recipes, categories=categories, subcategories=subcategories,
+                               pagination=pagination, page=page, per_page=per_page)
+
+    return render_template('login.html',
+                           message='Please log in or register to view your favourites',
+                           categories=categories, subcategories=subcategories)
+
+@app.route('/request_category', methods=['POST','GET'])
+def request_category():
+    categories = mongo.db.categories.find().sort("category_name")
+    subcategories = mongo.db.subcategories.find().sort("subcategory_name")
+    if 'username' in session:
+        if request.method == 'POST':
+            new_cat =  {'category_name': request.form["category_name"],
+                        'subcategory_name': request.form["subcategory_name"]}
+            existing_category = mongo.db.subcategories.find_one(new_cat)
+            already_requested = mongo.db.category_requests.find_one(new_cat)
+
+            if existing_category is None and already_requested is None:
+                mongo.db.category_requests.insert_one(new_cat)
+                return render_template('requestcategory.html',
+                                       categories=categories, subcategories=subcategories,
+                                       message='Category requested and awaiting approval');
+
+            return render_template('404.html',
+                                   categories=categories, subcategories=subcategories,
+                                   message='This category already exists or has already been requested')
+
+        return render_template('requestcategory.html',
+                               categories=categories, subcategories=subcategories,
+                               message='');
+
+    return render_template('login.html',
+                           message='Please log in or register to request a new category',
+                           categories=categories, subcategories=subcategories)
+
+@app.route('/list-requests', methods=['GET'])
+def list_requests():
+    categories = mongo.db.categories.find().sort("category_name")
+    subcategories = mongo.db.subcategories.find().sort("subcategory_name")
+    if 'username' in session:
+        if session['username'] == 'admin':
+            requests = mongo.db.category_requests.find()
+
+            if requests.count()==0:
+                return render_template('404.html',
+                                       categories=categories, subcategories=subcategories,
+                                       message='No requests are available')
+
+            return render_template('listrequests.html',
+                                   categories=categories, subcategories=subcategories,
+                                   requests=requests)
+
+        return render_template('404.html',
+                               categories=categories, subcategories=subcategories,
+                               message='Sorry, you are not authorised to approve category requests')
+
+    return render_template('404.html',
+                           categories=categories, subcategories=subcategories,
+                           message='You must be logged in to approve category requests')
+
+@app.route('/approve-request', methods=['POST','GET'])
+def approve_request():
+    categories = mongo.db.categories.find().sort("category_name")
+    subcategories = mongo.db.subcategories.find().sort("subcategory_name")
+    if 'username' in session:
+        if session['username'] == 'admin':
+            new_cat =  {'category_name': request.form["category_name"]}
+            new_subcat =  {'category_name': request.form["category_name"],
+                           'subcategory_name': request.form["subcategory_name"]}
+            existing_category = mongo.db.categories.find_one(new_cat)
+            existing_subcategory = mongo.db.subcategories.find_one(new_subcat)
+            mongo.db.category_requests.remove(new_subcat)
+
+            if existing_category is None:
+                mongo.db.categories.insert_one(new_cat)
+            if existing_subcategory is None:
+                mongo.db.subcategories.insert_one(new_subcat)
+
+            return redirect(url_for('list_requests'))
+
+        return render_template('404.html',
+                               categories=categories, subcategories=subcategories,
+                               message='Sorry, you are not authorised to approve category requests')
+
+    return render_template('404.html',
+                           categories=categories, subcategories=subcategories,
+                           message='You must be logged in to approve category requests')
+
+@app.route('/reject-request', methods=['POST','GET'])
+def reject_request():
+    categories = mongo.db.categories.find().sort("category_name")
+    subcategories = mongo.db.subcategories.find().sort("subcategory_name")
+    if 'username' in session:
+        if session['username'] == 'admin':
+            new_subcat =  {'category_name': request.form["category_name"],
+                           'subcategory_name': request.form["subcategory_name"]}
+            mongo.db.category_requests.remove(new_subcat)
+
+            return redirect(url_for('list_requests'))
+
+        return render_template('404.html',
+                               categories=categories, subcategories=subcategories,
+                               message='Sorry, you are not authorised to reject category requests')
+
+    return render_template('404.html',
+                           categories=categories, subcategories=subcategories,
+                           message='You must be logged in to reject category requests')
 
 if __name__ == '__main__':
     app.run(os.getenv('IP'), os.getenv('PORT'), debug=True)

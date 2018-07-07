@@ -18,4 +18,13 @@ $( document ).ready(function() {
       var elems = document.querySelectorAll('select');
       var instances = M.FormSelect.init(elems);
     });
+
+    // For the edit recipe page we need to auto select the relevant category_name
+    // if another subcategory is selected
+    $('#subcategory_name').change(function() {
+      selected_cat = $(this).find(":selected").attr('cat')
+      $('#category_name').val(selected_cat);
+      var elems = document.querySelectorAll('select');
+      var instances = M.FormSelect.init(elems);
+    });
 });

@@ -1,7 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Hello</h1>
+<div class="row">
+  <div class="col s12 m4 headline-count">
+    <h3 class="center-align">{{count_recipes}}</h3>
+    <h5 class="center-align">Recipes</h5>
+  </div>
+  <div class="col s12 m4 headline-count">
+    <h3 class="center-align">{{count_favourites}}</h3>
+    <h5 class="center-align">Favourited Recipes</h5>
+  </div>
+  <div class="col s12 m4 headline-count">
+    <h3 class="center-align">{{count_users}}</h3>
+    <h5 class="center-align">Users</h5>
+  </div>
+</div>
 {% for recipe in recipes %}
-{{recipe.recipe_steps}}
 {% endfor %}
 {% endblock %}
