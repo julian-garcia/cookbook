@@ -27,4 +27,17 @@ $( document ).ready(function() {
       var elems = document.querySelectorAll('select');
       var instances = M.FormSelect.init(elems);
     });
+
+    // Make svg graphs rendered by d3/dc responsive to screen size
+    function resize_svg() {
+        var graph_width = $("#popular-graph").outerWidth() - 20;
+        $("#popular-graph").children("svg").width(graph_width);
+        dc.renderAll();
+    }
+
+    resize_svg();
+
+    $(window).resize(function() {
+      resize_svg();
+    });
 });

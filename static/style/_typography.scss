@@ -9,7 +9,8 @@ h4,
 h5,
 h6,
 label,
-.recipe-list-item-title {
+.recipe-list-item-title,
+#popular-graph svg text {
   font-family: $title-font-family;
 }
 
@@ -27,4 +28,8 @@ li,
 p,
 input, textarea {
   font-family: $body-font-family;
+}
+
+#popular-graph svg text {
+  font-size: 22px;
 }

@@ -1,4 +1,5 @@
-import os, bcrypt, math, pymongo
+import os, bcrypt, math, pymongo, itertools, operator
+from operator import itemgetter
 from flask import Flask, render_template, url_for, request, session, redirect
 from flask_pymongo import PyMongo
 from flask_paginate import Pagination, get_page_parameter, get_page_args
@@ -18,9 +19,43 @@ def index():
     count_favourites = mongo.db.favourites.find().count()
     count_users = mongo.db.users.find().count()
 
+    # Identify all favourited recipies and extract their recipe titles
+    list_favourites = list(mongo.db.favourites.find().sort("recipe_id"))
+    ids = [item['recipe_id'] for item in list_favourites]
+    list_recipes = [item['recipe_title']
+                        for item in list(mongo.db.recipes.find({'_id': {'$in': ids}}).sort("_id"))]
+    recipe_ids = [item['_id']
+                        for item in list(mongo.db.recipes.find({'_id': {'$in': ids}}).sort("_id"))]
+
+    # Sum the number of users for each favourited recipe so that we can then determine the 5 most popular
+    list_increments = [(item['recipe_id'], 1) for item in list_favourites]
+    list_user_counts = []
+    it = itertools.groupby(list_increments, operator.itemgetter(0))
+
+    for key, subiter in it:
+       list_user_counts.append(sum(item[1] for item in subiter))
+
+    # Form a list of dictionaries that will be used as data source by
+    # the JS charting framework dc
+    popular_recipes = []
+    for recipe_id, recipe, users in zip(recipe_ids, list_recipes, list_user_counts):
+        popular_recipes.append({'recipe_id': ObjectId(recipe_id), 'recipe_title': recipe, 'user_count': users})
+
+    popular_recipes_full = sorted(popular_recipes, key=itemgetter('user_count'), reverse=True)[:5]
+
+    # This is the data that will be passed to d3/dc/crossfilter. JS doesn't like object ids
+    # hence their removal
+    popular_recipes = [dict((k, v) for k, v in d.items() if k != 'recipe_id') for d in popular_recipes_full]
+
+    # Supply links to the 5 most popular recipes
+    popular_links = ['<a href="' + '/view/' + str(item['recipe_id']) + '">' + item['recipe_title'] + '</a>'
+                        for item in popular_recipes_full]
+
     return render_template('index.html',
                            recipes=recipes, categories=categories, subcategories=subcategories,
-                           count_favourites=count_favourites, count_recipes=count_recipes, count_users=count_users);
+                           count_favourites=count_favourites, count_recipes=count_recipes,
+                           count_users=count_users, popular_recipes=popular_recipes,
+                           popular_links=popular_links);
 
 @app.route('/search', methods=['POST'])
 def search():

@@ -88,3 +88,27 @@ label.active {
     color: $accent_1_colour;
   }
 }
+
+.headline-count {
+  background-color: $nav_colour;
+  color: white;
+  border-radius: 50%;
+  margin: 0 auto;
+  width: 70px;
+  height: 70px;
+  line-height: 70px;
+}
+
+#popular-graph svg {
+  $lighten: 0;
+  @for $i from 0 through 4 {
+    $lighten: $lighten + 5;
+    .row._#{$i} rect {
+      fill: lighten($nav_colour,$lighten);
+    }
+  }
+  text {
+    background: rgba(black,.6);
+    color: white;
+  }
+}

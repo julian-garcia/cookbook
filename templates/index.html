@@ -1,19 +1,42 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="row">
-  <div class="col s12 m4 headline-count">
-    <h3 class="center-align">{{count_recipes}}</h3>
+  <div class="col s12 m4">
+    <h4 class="center-align headline-count">{{count_recipes}}</h4>
     <h5 class="center-align">Recipes</h5>
   </div>
-  <div class="col s12 m4 headline-count">
-    <h3 class="center-align">{{count_favourites}}</h3>
-    <h5 class="center-align">Favourited Recipes</h5>
+  <div class="col s12 m4">
+    <h4 class="center-align headline-count">{{count_favourites}}</h4>
+    <h5 class="center-align">Favourites</h5>
   </div>
-  <div class="col s12 m4 headline-count">
-    <h3 class="center-align">{{count_users}}</h3>
+  <div class="col s12 m4">
+    <h4 class="center-align headline-count">{{count_users}}</h4>
     <h5 class="center-align">Users</h5>
   </div>
 </div>
-{% for recipe in recipes %}
-{% endfor %}
+<div class="row hide-on-large-only">
+  <div class="col s12">
+    <h4 class="center-align">Top 5 Recipes</h4>
+  </div>
+</div>
+<div class="row valign-wrapper">
+  <div class="col s12 m6 l4">
+    <div id="popular-graph"></div>
+  </div>
+  <div class="col hide-on-med-and-down l4">
+    <h4 class="center-align">Top 5 Recipes</h4>
+  </div>
+  <div class="col hide-on-small-only m6 l4">
+    {% for link in popular_links %}
+    <h5 class="center-align">{{link|safe}}</h5>
+    {% endfor %}
+  </div>
+</div>
+<div class="row hide-on-med-and-up">
+  <div class="col s12">
+    {% for link in popular_links %}
+    <h5 class="center-align">{{link|safe}}</h5>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}
