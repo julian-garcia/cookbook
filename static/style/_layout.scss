@@ -3,8 +3,12 @@
   height: 1.5rem;
 }
 
-.brand-logo i {
-  margin-left: 1rem;
+.brand-logo {
+  line-height:60px;
+  i {
+    margin-left: 1rem;
+    line-height:60px;
+  }
 }
 
 .search-icon-label {

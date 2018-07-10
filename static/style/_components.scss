@@ -1,3 +1,53 @@
+.top-5-links {
+  a {
+      display: block;
+      color: $nav_colour;
+      margin: 0;
+      padding: 2px 0;
+      transition: all .5s ease-in-out;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-left-color: $accent_1_colour;
+      &:hover {
+        color: white;
+        background-color: $nav_colour;
+        border-left-color: $accent_2_colour;
+      }
+  }
+
+  h6 {
+    line-height: 55px;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    &::before {
+      content: "\f005";
+      position: absolute;
+      left: 3px;
+      font-family: "Font Awesome 5 Free";
+      font-size: 22px;
+      color: $accent_1_colour;
+      transition: all .5s ease-in-out;
+    }
+    &:hover::before {
+      color: $accent_2_colour;
+      -webkit-animation: rotating 3s linear infinite;
+      -moz-animation: rotating 3s linear infinite;
+      -ms-animation: rotating 3s linear infinite;
+      -o-animation: rotating 3s linear infinite;
+      animation: rotating 3s linear infinite;
+    }
+  }
+
+  .odd-row {
+    background-color: lighten($accent_1_colour,30);
+  }
+
+  .even-row {
+    background-color: lighten($accent_1_colour,40);
+  }
+}
+
 .btn, .card-action.view-recipe-link {
   background-color: $button_colour;
   color: black;
@@ -55,6 +105,8 @@ label.active {
   .card-content.recipe-list-item-desc {
     background-color: rgba($neutral_colour, .2);
     border-top-right-radius: 20px;
+    padding: 10px;
+    min-height: 40%;
   }
 }
 
@@ -106,9 +158,8 @@ label.active {
     .row._#{$i} rect {
       fill: lighten($nav_colour,$lighten);
     }
-  }
-  text {
-    background: rgba(black,.6);
-    color: white;
+    text.row._#{$i} {
+      fill: set-text-color(lighten($nav_colour,$lighten));
+    }
   }
 }

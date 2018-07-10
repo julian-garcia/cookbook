@@ -26,16 +26,26 @@
   <div class="col hide-on-med-and-down l4">
     <h4 class="center-align">Top 5 Recipes</h4>
   </div>
-  <div class="col hide-on-small-only m6 l4">
+  <div class="col hide-on-small-only m6 l4 top-5-links">
     {% for link in popular_links %}
-    <h5 class="center-align">{{link|safe}}</h5>
+    {% if loop.index % 2 == 0 %}
+      {% set rowclass = 'even-row' %}
+    {% else %}
+      {% set rowclass = 'odd-row' %}
+    {% endif %}
+    <h6 class="center-align {{rowclass}}">{{link|safe}}</h6>
     {% endfor %}
   </div>
 </div>
 <div class="row hide-on-med-and-up">
-  <div class="col s12">
+  <div class="col s12 top-5-links">
     {% for link in popular_links %}
-    <h5 class="center-align">{{link|safe}}</h5>
+    {% if loop.index % 2 == 0 %}
+      {% set rowclass = 'even-row' %}
+    {% else %}
+      {% set rowclass = 'odd-row' %}
+    {% endif %}
+    <h6 class="center-align {{rowclass}}">{{link|safe}}</h6>
     {% endfor %}
   </div>
 </div>

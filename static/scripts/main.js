@@ -1,4 +1,5 @@
 $( document ).ready(function() {
+    // Initialise Materialize JS components
     $(".dropdown-trigger").dropdown();
     var elems = document.querySelectorAll('.sidenav');
     var instances = M.Sidenav.init(elems);
@@ -28,7 +29,7 @@ $( document ).ready(function() {
       var instances = M.FormSelect.init(elems);
     });
 
-    // Make svg graphs rendered by d3/dc responsive to screen size
+    // Make sure that the svg graphs rendered by d3/dc are responsive to screen size
     function resize_svg() {
         var graph_width = $("#popular-graph").outerWidth() - 20;
         $("#popular-graph").children("svg").width(graph_width);

@@ -1,4 +1,4 @@
-
+// Render horizontal barchart for most popular recipes
 var ndx = crossfilter(popular_recipes);
 var dim = ndx.dimension(dc.pluck('recipe_title'));
 var grp = dim.group().reduceSum(function(d) {
@@ -13,8 +13,6 @@ dc.rowChart('#popular-graph')
   .x(d3.scaleOrdinal())
   .elasticX(true)
   .margins({top: 0, right: 0, bottom: -1, left: 0})
-  .transitionDuration(500)
-  .ordinalColors(['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00']);
+  .transitionDuration(500);
 
 dc.renderAll();
-console.log(popular_recipes);
