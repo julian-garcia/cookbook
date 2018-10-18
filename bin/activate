@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/Users/Cerberus/cookbook"
+VIRTUAL_ENV="/Users/Cerberus/projects/cookbook"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
