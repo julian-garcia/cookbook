@@ -67,32 +67,50 @@
   </header>
   <main class="container-fluid">
     <div class="row content-row">
-      <div class="col s12 m2 center-align">
+      <div class="col s12 m2 center-align side-bar">
         <div class="row">
           <div class="col s4 m12 center-align">
-            <a href="{{url_for('login')}}"><i class="fas fa-sign-in-alt sidebar-icon"></i></a>
+            <a href="{{url_for('login')}}">
+              <i class="fas fa-sign-in-alt sidebar-icon"></i>
+              <h6 class="center-align">Log In</h6>
+            </a>
           </div>
           <div class="col s4 m12 center-align">
-            <a href="{{url_for('register')}}"><i class="fas fa-user-plus sidebar-icon"></i></a>
+            <a href="{{url_for('register')}}">
+              <i class="fas fa-user-plus sidebar-icon"></i>
+            <h6 class="center-align">Register</h6>
+          </a>
           </div>
           <div class="col s4 m12 center-align">
-            <a href="{{url_for('logout')}}"><i class="fas fa-sign-out-alt sidebar-icon"></i></a>
+            <a href="{{url_for('logout')}}">
+              <i class="fas fa-sign-out-alt sidebar-icon"></i>
+            <h6 class="center-align">Log Out</h6>
+          </a>
           </div>
         </div>
       </div>
       <div class="col s12 m8">
         {% block content %} {% endblock %}
       </div>
-      <div class="col s12 m2 center-align">
+      <div class="col s12 m2 center-align side-bar">
         <div class="row">
           <div class="col s4 m12 center-align">
-            <a href="{{url_for('add_recipe')}}"><i class="fas fa-plus sidebar-icon"></i></a>
+            <a href="{{url_for('add_recipe')}}">
+              <i class="fas fa-plus sidebar-icon"></i>
+              <h6 class="center-align">Add Recipe</h6>
+            </a>
           </div>
           <div class="col s4 m12 center-align">
-            <a href="{{url_for('favourites')}}"><i class="fas fa-list sidebar-icon"></i></a>
+            <a href="{{url_for('favourites')}}">
+              <i class="fas fa-list sidebar-icon"></i>
+              <h6 class="center-align">Favourites</h6>
+            </a>
           </div>
           <div class="col s4 m12 center-align">
-            <a href="{{url_for('request_category')}}"><i class="far fa-folder-open sidebar-icon"></i></a>
+            <a href="{{url_for('request_category')}}">
+              <i class="far fa-folder-open sidebar-icon"></i>
+              <h6 class="center-align">Request Category</h6>
+            </a>
           </div>
         </div>
       </div>

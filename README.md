@@ -7,6 +7,7 @@ This is a **Flask** based implementation of a customisable cook book. Pages are 
   - add/remove favourites
   - request new categories
 - Requested categories can be approved/rejected by an administrator
+- Home page visualisation of the 5 most favourited recipies
 
 ## Design
 A rough wireframe was generated using draw.io. The wireframes can be viewed by

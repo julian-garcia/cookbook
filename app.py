@@ -82,7 +82,8 @@ def search():
         paginate_setup(recipes)
         return render_template('recipes.html',
                                recipes=recipes, categories=categories, subcategories=subcategories,
-                               pagination=pagination, page=page, per_page=per_page)
+                               pagination=pagination, page=page, per_page=per_page,
+                               page_title='Search Results')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -92,8 +93,16 @@ def login():
     which should clear out when the browser is closed or browser history is cleared.
     Other routes can then refer to the session variable to determine who is logged in.
     '''
+
     categories = mongo.db.categories.find().sort("category_name")
     subcategories = mongo.db.subcategories.find().sort("subcategory_name")
+
+    # Check that the user hasn't already logged in and, if so,
+    # do not route to the login form and advise the user
+    if 'username' in session:
+        return render_template('404.html',
+                               categories=categories, subcategories=subcategories,
+                               message='You are already logged in')
 
     if request.method == 'POST':
         users = mongo.db.users
@@ -129,6 +138,13 @@ def register():
     '''
     categories = mongo.db.categories.find().sort("category_name")
     subcategories = mongo.db.subcategories.find().sort("subcategory_name")
+
+    # Check that the user hasn't already logged in and therefore is registered.
+    # If so, do not route to the registration form and advise the user
+    if 'username' in session:
+        return render_template('404.html',
+                               categories=categories, subcategories=subcategories,
+                               message='You are already logged in and registered')
 
     if request.method == 'POST':
         users = mongo.db.users
@@ -174,7 +190,8 @@ def list_category(category_name):
     paginate_setup(recipes)
     return render_template('recipes.html',
                            recipes=recipes, categories=categories, subcategories=subcategories,
-                           pagination=pagination, page=page, per_page=per_page)
+                           pagination=pagination, page=page, per_page=per_page,
+                           page_title='')
 
 @app.route('/<category_name>/<subcategory_name>', methods=['GET'])
 def list_subcategory(category_name, subcategory_name):
@@ -188,7 +205,8 @@ def list_subcategory(category_name, subcategory_name):
     paginate_setup(recipes)
     return render_template('recipes.html',
                            recipes=recipes, categories=categories, subcategories=subcategories,
-                           pagination=pagination, page=page, per_page=per_page)
+                           pagination=pagination, page=page, per_page=per_page,
+                           page_title='')
 
 @app.route('/add-recipe', methods=['GET', 'POST'])
 def add_recipe():
@@ -374,7 +392,8 @@ def favourites():
         paginate_setup(recipes)
         return render_template('recipes.html',
                                recipes=recipes, categories=categories, subcategories=subcategories,
-                               pagination=pagination, page=page, per_page=per_page)
+                               pagination=pagination, page=page, per_page=per_page,
+                               page_title='Favourites')
 
     return render_template('login.html',
                            message='Please log in or register to view your favourites',

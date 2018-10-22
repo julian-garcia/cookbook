@@ -3,6 +3,16 @@ html, body {
   overflow-x: hidden;
 }
 
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
 .navbar-top {
   width: 100%;
   height: 1.5rem;
@@ -24,13 +34,11 @@ html, body {
 .content-row {
   margin-top: 1.5rem;
 }
-
-body {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-}
-
-main {
-  flex: 1 0 auto;
+.side-bar {
+  h6 {
+    margin-bottom: 2rem;
+  }
+  a {
+    display: block;
+  }
 }
