@@ -14,38 +14,46 @@
     <h5 class="center-align">Users</h5>
   </div>
 </div>
-<div class="row hide-on-large-only">
+<div class="divider"></div>
+<div class="row hide-on-large-only section">
   <div class="col s12">
     <h4 class="center-align">Top 5 Recipes</h4>
   </div>
 </div>
-<div class="row valign-wrapper">
-  <div class="col s12 m6 l4">
+<div class="row valign-wrapper section">
+  <div class="col s12 m6 l6">
+    <h4 class="center-align hide-on-med-and-down">Top 5 Recipes</h4>
     <div id="popular-graph"></div>
   </div>
-  <div class="col hide-on-med-and-down l4">
-    <h4 class="center-align">Top 5 Recipes</h4>
-  </div>
-  <div class="col hide-on-small-only m6 l4 top-5-links">
+  <div class="col hide-on-med-and-down l1"></div>
+  <div class="col hide-on-small-only m6 l5">
     {% for link in popular_links %}
-    {% if loop.index % 2 == 0 %}
-      {% set rowclass = 'even-row' %}
-    {% else %}
-      {% set rowclass = 'odd-row' %}
+    {% if loop.index == 1 %}
+    <h5 class="center-align">Star Recipe...</h5>
+    <div class="card grey lighten-3">
+      <div class="card-content">
+        <h4 class="center-align">{{ popular_recipes[0]['recipe_title'] }}</h4>
+        <p class="center-align">favourited by {{ popular_recipes[0]['user_count'] }} users</p>
+        <a class="btn-floating halfway-fab waves-effect waves-light" href="{{link|safe}}"><i class="material-icons">link</i></a>
+      </div>
+    </div>
     {% endif %}
-    <h6 class="center-align {{rowclass}}">{{link|safe}}</h6>
     {% endfor %}
   </div>
 </div>
 <div class="row hide-on-med-and-up">
-  <div class="col s12 top-5-links">
+  <div class="col s12">
     {% for link in popular_links %}
-    {% if loop.index % 2 == 0 %}
-      {% set rowclass = 'even-row' %}
-    {% else %}
-      {% set rowclass = 'odd-row' %}
+    {% if loop.index == 1 %}
+    <h5 class="center-align">Star Recipe...</h5>
+    <div class="card grey lighten-3">
+      <div class="card-content">
+        <h4 class="center-align">{{ popular_recipes[0]['recipe_title'] }}</h4>
+        <p class="center-align">favourited by {{ popular_recipes[0]['user_count'] }} users</p>
+        <a class="btn-floating halfway-fab waves-effect waves-light" href="{{link|safe}}"><i class="material-icons">link</i></a>
+      </div>
+    </div>
     {% endif %}
-    <h6 class="center-align {{rowclass}}">{{link|safe}}</h6>
     {% endfor %}
   </div>
 </div>

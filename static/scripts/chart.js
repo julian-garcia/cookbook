@@ -17,4 +17,24 @@ $(document).ready(function() {
     .transitionDuration(500);
 
   dc.renderAll();
+
+  // Add the relevant recipe links to each bar rendered in the chart
+  var chart = document.getElementById('popular-graph');
+
+  chart.addEventListener('click', function(e) {
+    for(let i = 0; i < 5; i++) {
+      if (e.target.parentNode.className.baseVal == `row _${i}`) {
+        window.location = popular_links[i];
+      }
+    }
+  });
+
+  chart.addEventListener('mouseover', function(e) {
+    let bar = e.target.parentNode;
+    for(let i = 0; i < 5; i++) {
+      if (bar.className.baseVal == `row _${i}`) {
+        bar.style.cursor = 'pointer';
+      }
+    }
+  });
 });
