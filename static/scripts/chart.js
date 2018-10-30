@@ -28,13 +28,4 @@ $(document).ready(function() {
       }
     }
   });
-
-  chart.addEventListener('mouseover', function(e) {
-    let bar = e.target.parentNode;
-    for(let i = 0; i < 5; i++) {
-      if (bar.className.baseVal == `row _${i}`) {
-        bar.style.cursor = 'pointer';
-      }
-    }
-  });
 });

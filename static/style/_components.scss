@@ -105,15 +105,20 @@ label.active {
   line-height: 70px;
 }
 
-#popular-graph svg {
-  $lighten: 0;
-  @for $i from 0 through 4 {
-    $lighten: $lighten + 5;
-    .row._#{$i} rect {
-      fill: lighten($nav_colour,$lighten);
-    }
-    text.row._#{$i} {
-      fill: set-text-color(lighten($nav_colour,$lighten));
+#popular-graph {
+  .row:hover {
+    cursor: pointer;
+  }
+  svg {
+    $lighten: 0;
+    @for $i from 0 through 4 {
+      $lighten: $lighten + 5;
+      .row._#{$i} rect {
+        fill: lighten($nav_colour,$lighten);
+      }
+      text.row._#{$i} {
+        fill: set-text-color(lighten($nav_colour,$lighten));
+      }
     }
   }
 }
