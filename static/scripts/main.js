@@ -13,7 +13,7 @@ $( document ).ready(function() {
 
     $('#category_name').change(function() {
       // Select subcategories relevant to the selected category only
-      var filter_options = options.filter('[cat="' + this.value + '"],[cat=""]');
+      var filter_options = options.filter('[data-cat="' + this.value + '"],[data-cat=""]');
       $('#subcategory_name').html(filter_options);
       // Re-render all materialize dropdowns
       var elems = document.querySelectorAll('select');
@@ -23,7 +23,7 @@ $( document ).ready(function() {
     // For the edit recipe page we need to auto select the relevant category_name
     // if another subcategory is selected
     $('#subcategory_name').change(function() {
-      selected_cat = $(this).find(":selected").attr('cat')
+      selected_cat = $(this).find(":selected").attr('data-cat')
       $('#category_name').val(selected_cat);
       var elems = document.querySelectorAll('select');
       var instances = M.FormSelect.init(elems);

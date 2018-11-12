@@ -8,15 +8,16 @@
         <div class="row">
           <div class="col s12 m8">
             <p>{{recipe.recipe_description}}</p>
-            <ul>
+            <hr>
             <h6>Preparation:</h6>
+            <ul>
             {% for item in recipe.recipe_steps %}
             <li>{{item}}</li>
             {% endfor %}
             </ul>
           </div>
           <div class="col s12 m4">
-            <img class="responsive-img" src="{{url_for('static',filename='images/'+recipe.image_url)}}">
+            <img class="responsive-img" src="{{url_for('static',filename='images/'+recipe.image_url)}}" alt="recipe-image">
           </div>
         </div>
         <a href="{{url_for('add_favourite', recipe_id=recipe._id)}}" class="btn-floating halfway-fab waves-effect waves-light recipe-add">

@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
+{% if page_title %}
 <h3 class="center-align">{{ page_title }}</h3>
+{% endif %}
 <div class="row recipe-section">
 {{ pagination.links }}
 {% for recipe in recipes %}
@@ -8,7 +10,7 @@
   <div class="col s12 m6 l4">
     <div class="card small recipe-list-item">
       <div class="card-image recipe-list-item-image">
-        <img src="{{url_for('static',filename='images/'+recipe.image_url)}}">
+        <img src="{{url_for('static',filename='images/'+recipe.image_url)}}" alt="recipe">
         <span class="card-title recipe-list-item-title">{{recipe.recipe_title}}</span>
       </div>
       <div class="card-content recipe-list-item-desc">

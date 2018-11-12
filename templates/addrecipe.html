@@ -28,9 +28,9 @@
       </div>
       <div class="input-field col s12 m6">
         <select name="subcategory_name" id="subcategory_name" required>
-          <option cat="" value="" disabled selected>Choose subcategory</option>
+          <option data-cat="" value="" disabled selected>Choose subcategory</option>
           {% for subcategory in subcategories %}
-          <option cat="{{subcategory.category_name}}" value="{{subcategory.subcategory_name}}">{{subcategory.subcategory_name|title}}</option>
+          <option data-cat="{{subcategory.category_name}}" value="{{subcategory.subcategory_name}}">{{subcategory.subcategory_name|title}}</option>
           {% endfor %}
         </select>
         <label for="subcategory_name">Sub Category</label>
