@@ -1,0 +1,36 @@
+test_add_favourite (__main__.TestCookBookApp) ... /Users/Cerberus/projects/cookbook/app.py:28: DeprecationWarning: count is deprecated. Use Collection.count_documents instead.
+  count_recipes = recipes.count()
+/Users/Cerberus/projects/cookbook/app.py:29: DeprecationWarning: count is deprecated. Use Collection.count_documents instead.
+  count_favourites = favourites.count()
+/Users/Cerberus/projects/cookbook/app.py:30: DeprecationWarning: count is deprecated. Use Collection.count_documents instead.
+  count_users = mongo.db.users.find().count()
+/Users/Cerberus/projects/cookbook/app.py:310: DeprecationWarning: remove is deprecated. Use delete_one or delete_many instead.
+  mongo.db.favourites.remove(delete_favourite)
+ok
+test_add_recipe (__main__.TestCookBookApp) ... /Users/Cerberus/projects/cookbook/app.py:156: DeprecationWarning: count is deprecated. Use Collection.count_documents instead.
+  total=records.count(),
+ok
+test_deny_duplicate_favourite (__main__.TestCookBookApp) ... ok
+test_existing_user_registration (__main__.TestCookBookApp) ... ok
+test_favourites_logged_out (__main__.TestCookBookApp) ... ok
+test_flask (__main__.TestCookBookApp) ... ok
+test_invalid_login (__main__.TestCookBookApp) ... ok
+test_list_favourites (__main__.TestCookBookApp) ... ok
+test_login_page_loaded (__main__.TestCookBookApp) ... ok
+test_logout_whilst_logged_in (__main__.TestCookBookApp) ... ok
+test_logout_whilst_logged_out (__main__.TestCookBookApp) ... ok
+test_new_user_registration (__main__.TestCookBookApp) ... /Users/Cerberus/projects/cookbook/app.py:133: DeprecationWarning: insert is deprecated. Use insert_one or insert_many instead.
+  users.insert({'name': request.form['username'], 'password': hashpass})
+ok
+test_no_favourites (__main__.TestCookBookApp) ... ok
+test_register_page_loaded (__main__.TestCookBookApp) ... ok
+test_search (__main__.TestCookBookApp) ... /Users/Cerberus/projects/cookbook/app.py:55: DeprecationWarning: count is deprecated. Use Collection.count_documents instead.
+  if recipes.count() == 0:
+ok
+test_valid_login (__main__.TestCookBookApp) ... ok
+test_view_recipe (__main__.TestCookBookApp) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 10.342s
+
+OK

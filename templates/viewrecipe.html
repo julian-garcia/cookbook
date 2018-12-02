@@ -6,7 +6,7 @@
         <h3>{{recipe.recipe_title}}</h3>
         <h5>{{recipe.category_name|title}} / {{recipe.subcategory_name|title}}</h5>
         <div class="row">
-          <div class="col s12 m8">
+          <div class="col m12 l4 xl6">
             <p>{{recipe.recipe_description}}</p>
             <hr>
             <h6>Preparation:</h6>
@@ -16,7 +16,7 @@
             {% endfor %}
             </ul>
           </div>
-          <div class="col s12 m4">
+          <div class="col m12 l8 xl6">
             <img class="responsive-img" src="{{url_for('static',filename='images/'+recipe.image_url)}}" alt="recipe-image">
           </div>
         </div>
