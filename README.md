@@ -11,9 +11,9 @@ This is a **Flask** based implementation of a customisable cook book. Pages are 
 - Home page visualisation of the 5 most favourited recipies
 
 ## Design
-A rough wireframe was generated using draw.io. The wireframes can be viewed by
+A rough wireframe was generated using [draw.io](https://www.draw.io). The wireframes can be viewed by
 opening [mockup.xml](resources/mockup.xml) via the draw.io website. The colour scheme was defined using
-coolor.co, details of the selected scheme are in [palette.pdf](resources/palette.pdf)
+[coolors.co](https://coolors.co), details of the selected scheme are in [palette.pdf](resources/palette.pdf). The design was implemented to be responsive in relation to viewport size, taking a mobile first approach.
 
 ## Languages/Framework
 - HTML, CSS, SCSS
@@ -28,7 +28,7 @@ coolor.co, details of the selected scheme are in [palette.pdf](resources/palette
 - [Google Fonts](https://fonts.google.com) (Material icons, Courgette, Overpass, Pacifico)
 
 ## Deployment & Contributions
-The source code is deployed on GitHub whilst the app itself is deployed on Heroku which is linked to the GitHub repository. To create your own copy of the app and make amendments and re-deploy under your own account, follow the installation and deployment instructions.
+The source code is deployed on GitHub whilst the app itself is deployed on Heroku which is linked to the GitHub repository. To create your own copy of the app, make amendments and re-deploy under your own account, follow the installation and deployment instructions.
 ### Installation
 Make your own folder and navigate to it on the command line. Then enter the following:
 ```
@@ -56,7 +56,7 @@ heroku ps:scale web=1
 Add config vars: IP 0.0.0.0 and PORT 5000
 
 ## Testing
-Several tests have been determined to verify that data requests and posts are behaving as expected by checking the resulting page content after a page load request. Test results are in [tests.txt](tests.txt) which shows succussful outcomes for the following tests:
+Several tests have been determined to verify that data requests and posts are behaving as expected by checking the resulting page content after specific requests. Test results are in [tests.txt](tests.txt) which shows successful outcomes for the following tests:
 - test_add_favourite - New favaourite added to favourites for a logged in user
 - test_add_recipe - Test new recipe is added for logged in user
 - test_deny_duplicate_favourite - Favourite recipe not added if already favourited

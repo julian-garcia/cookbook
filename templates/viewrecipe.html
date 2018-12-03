@@ -1,10 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
+
+<!-- View full details for a single recipe, including description, ingredients, preparation, -->
+<!-- full size image, edit button, add to/remove from favourites button, cooking time etc.   -->
+
 <div class="recipe-section">
     <div class="card view-recipe">
       <div class="card-content">
         <h3>{{recipe.recipe_title}}</h3>
         <h5>{{recipe.category_name|title}} / {{recipe.subcategory_name|title}}</h5>
+
+        <!-- Main content of the card styled element is the title,  -->
+        <!-- description, preparation and image                     -->
+        
         <div class="row">
           <div class="col m12 l4 xl6">
             <p>{{recipe.recipe_description}}</p>
@@ -16,17 +24,28 @@
             {% endfor %}
             </ul>
           </div>
+
           <div class="col m12 l8 xl6">
             <img class="responsive-img" src="{{url_for('static',filename='images/'+recipe.image_url)}}" alt="recipe-image">
           </div>
         </div>
+
+        <!-- These two links are restricted logged in users. Add a recipe by passing in the   -->
+        <!-- current recipe id. Also link to a pre-populated form to edit the current recipe. -->
+        <!-- Guests are re-directed to the log in page                                        -->
+
         <a href="{{url_for('add_favourite', recipe_id=recipe._id)}}" class="btn-floating halfway-fab waves-effect waves-light recipe-add">
           <i class="material-icons">star</i>
         </a>
+
         <a href="{{url_for('edit_recipe', recipe_id=recipe._id)}}" class="btn-floating halfway-fab waves-effect waves-light recipe-edit">
           <i class="material-icons">edit</i>
         </a>
       </div>
+
+      <!-- Tabbed content comprising ingredients, cooking/prep time and author user name.  -->
+      <!-- Priority is given to ingredients as they should be visible on initial page load -->
+
       <div class="card-tabs">
         <ul class="tabs tabs-fixed-width">
           <li class="tab"><a class="active recipe-tab" href="#ingredients">Ingredients</a></li>
@@ -34,6 +53,7 @@
           <li class="tab"><a class="recipe-tab" href="#author">Author</a></li>
         </ul>
       </div>
+
       <div class="card-content grey lighten-4">
         <div id="ingredients">
           <ul>
@@ -42,13 +62,16 @@
           {% endfor %}
           </ul>
         </div>
+
         <div id="times">
           <h5>Cooking time: {{recipe.cooking_time}}</h5>
           <h5>Preparation time: {{recipe.preparation_time}}</h5>
         </div>
+
         <div id="author"><h5>{{recipe.recipe_author}}</h5></div>
       </div>
     </div>
+
     <h4 class="center-align view-recipe-message">{{message}}</h4>
 </div>
 {% endblock %}

@@ -2,10 +2,16 @@
 {% block content %}
 <div class="row">
   <h3 class="center-align">Add To Favourites</h3>
+
+  <!-- Pass the id of the selected recipe in to the add_favourite view      -->
+  <!-- and the recipe id will be added to the favourites mongodb collection -->
+  <!-- for the logged in user                                               -->
+
   <form class="col s12" action="{{url_for('add_favourite', recipe_id = recipe._id)}}" method="POST">
     <div class="row">
       <h5 class="center-align">Add {{recipe.recipe_title}} to your favourites?</h5>
     </div>
+    
     <div class="row">
       <div class="col s12 center-align">
         <button class="btn waves-effect waves-light" type="submit" name="action">Add to Favourites
@@ -15,6 +21,9 @@
     </div>
   </form>
 </div>
+
+<!-- Confirmation message appears here to confirm to -->
+<!-- the user that a favourite hass been added       -->
 {{message}}
 
 {% endblock %}

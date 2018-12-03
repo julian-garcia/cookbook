@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
+
+<!-- Overall recipe, favourite and user counts - the counts are calculated    -->
+<!-- using aggregate queries against the relevant mongo database collections. -->
+
 <div class="row">
   <div class="col s12 m4">
     <h4 class="center-align headline-count">{{count_recipes}}</h4>
@@ -14,18 +18,28 @@
     <h5 class="center-align">Users</h5>
   </div>
 </div>
+
 <div class="divider"></div>
+
 <div class="row hide-on-large-only section">
   <div class="col s12">
     <h4 class="center-align">Top 5 Recipes</h4>
   </div>
 </div>
+
+<!-- The 5 most popular recipes are rendered in this section using -->
+<!-- the array popular_recipes which is passed in to this template -->
+
 <div class="row valign-wrapper section">
   <div class="col s12 m6 l6">
     <h4 class="center-align hide-on-med-and-down">Top 5 Recipes</h4>
+
+    <!-- Placeholder used by d3/dc Javascript to render a top 5 barchart -->
+
     <div id="popular-graph"></div>
   </div>
   <div class="col hide-on-med-and-down l1"></div>
+
   <div class="col hide-on-small-only m6 l5">
     {% for link in popular_links %}
     {% if loop.index == 1 %}
@@ -41,6 +55,7 @@
     {% endfor %}
   </div>
 </div>
+
 <div class="row hide-on-med-and-up">
   <div class="col s12">
     {% for link in popular_links %}

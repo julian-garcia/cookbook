@@ -14,6 +14,10 @@
 </head>
 
 <body>
+
+  <!-- Dynamically populate the navigation menu based on the content -->
+  <!-- of the category and subcategory mongodb collections           -->
+
   <header>
     {% for category in categories %}
     <ul id="{{category.category_name}}-dropdown" class="dropdown-content">
@@ -33,7 +37,9 @@
         <a href="{{url_for('index')}}" class="brand-logo">
           <i class="fas fa-utensils"></i> <span class="hide-on-small-only">Cookle-Bookle</span>
         </a>
-        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+          <i class="material-icons">menu</i>
+        </a>
         <ul class="right hide-on-med-and-down">
           <li>
             <form action="{{url_for('search')}}" method='POST'>
@@ -58,6 +64,7 @@
         </ul>
       </div>
     </nav>
+
     <ul class="sidenav" id="mobile-demo">
       {% for category in categories %}
       <li><a href="{{url_for('list_category', category_name=category.category_name)}}">{{category.category_name|title}}</a></li>
@@ -65,8 +72,16 @@
       {% set _stub = categories.rewind() %}
     </ul>
   </header>
+
+  <!-- Main content area - here the left and right sidebars are defined -->
+  <!-- along with a placeholder in the center where the main content    -->
+  <!-- will be inserted by other templates                              -->
+
   <main class="container-fluid">
     <div class="row content-row">
+
+      <!-- Left sidebar for user activity - log in/out and registration -->
+
       <div class="col s12 m2 center-align side-bar">
         <div class="row">
           <div class="col s4 m12 center-align">
@@ -89,9 +104,16 @@
           </div>
         </div>
       </div>
+
+      <!-- Main content to be inserted by other templates -->
+
       <div class="col s12 m8">
         {% block content %} {% endblock %}
       </div>
+
+      <!-- Right sidebar for recipe related activity - adding a new recipe, -->
+      <!-- accessing favourites and requesting new categories.              -->
+
       <div class="col s12 m2 center-align side-bar">
         <div class="row">
           <div class="col s4 m12 center-align">
@@ -116,6 +138,7 @@
       </div>
     </div>
   </main>
+
   <footer class="page-footer">
     <div class="footer-copyright">
       <div class="container">
@@ -124,6 +147,7 @@
       </div>
     </div>
   </footer>
+
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
   <script src="{{url_for('static', filename='scripts/main.js')}}"></script>
@@ -131,10 +155,12 @@
   <script src="https://d3js.org/d3.v5.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dc/3.0.4/dc.min.js"></script>
+
   <script>
       var popular_recipes = {{ popular_recipes | safe }};
       var popular_links = {{ popular_links | safe }};
   </script>
+  
   <script src="{{url_for('static', filename='scripts/chart.js')}}"></script>
   {% endif %}
 </body>

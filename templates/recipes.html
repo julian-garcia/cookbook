@@ -1,24 +1,42 @@
 {% extends 'base.html' %}
 {% block content %}
+
 {% if page_title %}
 <h3 class="center-align">{{ page_title }}</h3>
 {% endif %}
+
 <div class="row recipe-section">
 {{ pagination.links }}
+
+<!-- Loop through each recipe in the recipies mongodb collection -->
+<!-- and render each recipe in a grid listing                    -->
+
 {% for recipe in recipes %}
   {% if loop.index-1 >= (page-1) * per_page and loop.index-1 < per_page + (page-1) * per_page %}
   <div class="col s12 m6 l4">
+
+    <!-- Card styled element to render recipies in a grid layout -->
+    <!-- with a thumbnail image, description and view button -->
+
     <div class="card small recipe-list-item">
+
       <div class="card-image recipe-list-item-image">
         <img src="{{url_for('static',filename='images/'+recipe.image_url)}}" alt="recipe">
         <span class="card-title recipe-list-item-title">{{recipe.recipe_title}}</span>
       </div>
+
       <div class="card-content recipe-list-item-desc">
         <p>{{recipe.recipe_description}}</p>
       </div>
-      <a class="center-align" href="{{url_for('view_recipe', recipe_id=recipe._id)}}"><div class="card-action view-recipe-link">
-        View Recipe
-      </div></a>
+
+      <!-- Need to pass in the recipe ID in order to view full details of a single recipe  -->
+
+      <a class="center-align" href="{{url_for('view_recipe', recipe_id=recipe._id)}}">
+        <div class="card-action view-recipe-link">
+          View Recipe
+        </div>
+      </a>
+
     </div>
   </div>
   {% endif %}
