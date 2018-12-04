@@ -1,3 +1,9 @@
+// The look and feel of this site is based on the materialize css framework.
+// This custom CSS is for minimal adjustments to the layout in terms of 
+// vertical/horizontal spacing  
+
+// Prevent horizontal scrolling for smaller devices
+
 html, body {
   width: 100%;
   overflow-x: hidden;

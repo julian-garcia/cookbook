@@ -56,7 +56,7 @@ heroku ps:scale web=1
 Add config vars: IP 0.0.0.0 and PORT 5000
 
 ## Testing
-Several tests have been determined to verify that data requests and posts are behaving as expected by checking the resulting page content after specific requests. Test results are in [tests.txt](tests.txt) which shows successful outcomes for the following tests:
+Several tests have been determined to verify that database queries and client requests are behaving as expected by checking the resulting page content after specific requests. Test results are in [tests.txt](tests.txt) which shows successful outcomes for the following tests:
 - test_add_favourite - New favaourite added to favourites for a logged in user
 - test_add_recipe - Test new recipe is added for logged in user
 - test_deny_duplicate_favourite - Favourite recipe not added if already favourited
@@ -73,7 +73,7 @@ Several tests have been determined to verify that data requests and posts are be
 - test_search - Verify that search results
 - test_valid_login - User is logged in when correct credentials are used
 - test_view_recipe - Viewing a specific recipe renders expected content
-You can re-run the above tests by running: `python tests.py -v` on the command line, the results will be redirected to [tests.txt](tests.txt)
+You can re-run the above tests by running: `python tests.py -v` on the command line, the results will be redirected to [tests.txt](tests.txt). Source code for the tests: [tests.py](tests.py)
 
 ## Credits
 ### Media

@@ -1,3 +1,7 @@
+// Much of the styling and look and feel of this site is based on the 
+// materialize css framework. This custom CSS is for minimal adjustments,
+// tweaks and overrides
+
 a {
   color: $nav_colour;
 }
@@ -14,6 +18,8 @@ a {
 label.active {
   color: $accent_2_colour;
 }
+
+// Circular left and right sidebar buttons
 
 .sidebar-icon {
   background-color: $accent_1_colour;
@@ -32,6 +38,8 @@ label.active {
   }
 }
 
+// Basic colour styling of the top navigation bar
+
 .navbar, .page-footer .footer-copyright {
   background-color: $nav_colour;
 }
@@ -39,6 +47,9 @@ label.active {
 .navbar-top, .page-footer {
   background-color: $accent_2_colour;
 }
+
+// Recipe listing section background - this is used on various pages
+// wherever a recipe listing is rendered
 
 .recipe-section {
   background: center top / contain no-repeat url('/static/images/buffet.png');
@@ -63,6 +74,8 @@ label.active {
     min-height: 40%;
   }
 }
+
+// Basic colour adjustments to the single recipe card element
 
 .card.view-recipe {
   background-color: rgba(white, .95);
@@ -104,6 +117,9 @@ label.active {
   height: 70px;
   line-height: 70px;
 }
+
+// Overide default d3/dc barchart styling so that bar colours
+// fall in line with the colour scheme of the wider website
 
 #popular-graph {
   .row:hover {
